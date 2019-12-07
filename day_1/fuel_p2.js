@@ -2,36 +2,25 @@ const fs = require('fs');
 
 let coords = fs.readFileSync('./coords.txt', 'utf8');
 
-let preVal = 0;
-
-function maths(fuelForCord) {
+function maths(fuelForCord, arr) {
 	if (Math.floor(fuelForCord / 3) - 2 <= 0) {
-		return preVal;
+		return;
 	} else {
 		fuelForCord = Math.floor(fuelForCord / 3) - 2;
-		console.log(preVal);
-		preVal += fuelForCord;
-		console.log(preVal);
+		arr.push(fuelForCord);
 	}
-	return maths(fuelForCord);
+	return maths(fuelForCord, arr);
 }
 
 let fuel = (coords = coords
 	.split('\r\n')
-	// .map((coord) => Math.floor(parseInt(coord) / 3) - 2)
 	.map((coord) => parseInt(coord, 10))
-	.map(maths)
+	.map((coord) => {
+		let fuels = [];
+		maths(coord, fuels);
+
+		return fuels.reduce((prevFuel, curFuel) => prevFuel + curFuel);
+	})
 	.reduce((prevVal, curVal) => prevVal + curVal));
 
 console.log(fuel);
-
-// [ 20023 ]
-// [ 6672 ]
-// [ 2222 ]
-// [ 738 ]
-// [ 244 ]
-// [ 79 ]
-// [ 24 ]
-// [ 6 ]
-
-// 30008
