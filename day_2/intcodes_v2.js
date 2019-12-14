@@ -38,13 +38,11 @@ function calculate(noun, verb, arr) {
 	}
 }
 
-for (let i = 12; i < 100; i++) {
-	for (let j = 2; j < 100; j++) {
+for (let i = 0; i < 100; i++) {
+	for (let j = 0; j < 100; j++) {
 		let res = calculate(i, j, codesData.slice(0, codesData.length - 1));
 		if (res.result === 19690720) {
 			console.log(`Noun: ${res.noun}, verb: ${res.verb}`);
 		}
 	}
 }
-
-// console.log(codesData[0]);
